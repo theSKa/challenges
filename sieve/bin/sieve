@@ -5,12 +5,12 @@ require 'terminal-table'
 
 sieve = Sieve::Generator.new
 
-arguments = ARGV.nil? ? '10' : ARGV
+arguments = ARGV.length == 0 ? ['10'] : ARGV
 arguments.each do |arg|
   upper_limit = arg.to_i
   if  upper_limit > 0
-    rows = []
     primes = (0..upper_limit).map{|x| sieve[x]}
+    rows = [['X'] + primes]
     (0..upper_limit).each do |i|
       columns = []
       columns << primes[i]
@@ -20,7 +20,7 @@ arguments.each do |arg|
       rows << :separator
       rows << columns
     end
-    table = Terminal::Table.new :rows => rows, :headings => ['X'] + primes
+    table = Terminal::Table.new :rows => rows
     puts table
 
   end
