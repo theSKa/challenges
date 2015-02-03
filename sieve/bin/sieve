@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+require 'sieve'
+
+sieve = Sieve::Generator.new
+
+ARGV.each do |upper_limit|
+  puts sieve.print
+end
