@@ -1,0 +1,4 @@
+--color
+--format progress
+--format documentation --color -o "tmp/rspec/documentation.txt"
+--format html -o "tmp/rspec/log.html"

@@ -1,9 +1,27 @@
 #!/usr/bin/env ruby
 
 require 'sieve'
+require 'terminal-table'
 
 sieve = Sieve::Generator.new
 
-ARGV.each do |upper_limit|
-  puts sieve.print
+arguments = ARGV.nil? ? '10' : ARGV
+arguments.each do |arg|
+  upper_limit = arg.to_i
+  if  upper_limit > 0
+    rows = []
+    primes = (0..upper_limit).map{|x| sieve[x]}
+
+    (0..upper_limit).each do |i|
+      columns = []
+      (0..upper_limit).each do |j|
+        columns << sieve[i] * sieve[j]
+      end
+      rows << :separator
+      rows << columns
+    end
+    table = Terminal::Table.new :rows => rows, :headings => primes
+    puts table
+
+  end
 end
